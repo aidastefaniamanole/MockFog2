@@ -1,6 +1,7 @@
 #!/bin/bash
 
-node app.js bootstrap
+# node app.js bootstrap
+# python3 get_macs.py
 node app.js agent
 node app.js manipulate
 node app.js prepare

@@ -1,8 +1,8 @@
 {
     "gcp": {
         "project": "fogdatabench21",
-        "region": "europe-west1",
-        "zone": "europe-west1-c",
+        "region": "europe-west4",
+        "zone": "europe-west4-a",
         "gcp_cred_file": "/home/stefania/Documents/TUB/ADSP/MockFog2/node-manager/fogdatabench21_cred.json", // absolute path to gcp service account file
         "image": "projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts", // image to boot from
         "agent_port": 3100

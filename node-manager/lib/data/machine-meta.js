@@ -71,44 +71,6 @@ const conf = require("../config.js")
     }
 }
 
-/**
- * Returns the netplan string
- * @param {String} machine_name
- * @param {Object} instances the machine meta json instances object
- */
-
-function getNetplanStringAWS(machine_name, instances) {
-    const network_interfaces = getInstance(machine_name, instances).networkInterfaces
-
-    // mac addresses
-    const addresses = {}
-
-    for (const network_interface of network_interfaces) {
-        const ip = network_interface.private_ip_address
-        if (ip.startsWith("10.0.2.")) {
-            addresses["internal"] = network_interface.mac_address
-        } else if (ip.startsWith("10.0.1.")) {
-            addresses["management"] = network_interface.mac_address
-        }
-    }
-
-    return `network:
-    ethernets:
-        ens5:
-            dhcp4: true
-            dhcp6: false
-            match:
-                macaddress: ${addresses["management"]}
-            set-name: ens5
-        ens6:
-            dhcp4: true
-            dhcp6: false
-            match:
-                macaddress: ${addresses["internal"]}
-            set-name: ens6
-    version: 2
-`
-}
 
 /**
  * Returns the netplan string
@@ -120,27 +82,22 @@ function getNetplanStringAWS(machine_name, instances) {
     // get mac addresses
     const addresses = {}
     
-    fileLocation = conf.runConfigDir + "mac_addrs.json"
+    fileLocation = conf.runConfigDir + "vars/mac_addrs.json"
     const infraJson = fs.readFileSync(fileLocation, "utf-8")
     const stripped = stripJson(infraJson)
     
     try {
         var vm_macs = JSON.parse(stripped)
 
-        for (const vm of vm_macs.mac_addrs) {
+        for (const vm of vm_macs) {
             if (vm.name === machine_name) {
-                var arr = vm.macs.split("\r\n");
-                for (var i = 0; i < arr.length; i++) {
-                    var line = arr[i].split(" ")
-                    if (line[0].includes("ens5")) {
-                        addresses["internal"] = line[1]
-                        console.log(addresses["internal"] = line[1])
-                    } else if (line[0].includes("ens4")) {
-                        addresses["management"] = line[1]
-                        console.log(addresses["management"] = line[1])
+               for (const network_interface of vm.networkInterfaces) {
+                    if (network_interface.ip_addr.startsWith("10.0.2.")) {
+                        addresses["internal"] = network_interface.mac_addr
+                    } else if (network_interface.ip_addr.startsWith("10.0.1.")) {
+                        addresses["management"] = network_interface.mac_addr
                     }
-                }
-                break
+               }
             }
         }
 
