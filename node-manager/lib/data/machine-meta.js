@@ -105,18 +105,18 @@ const conf = require("../config.js")
 
         return `network:
         ethernets:
-            ens5:
+            ens4:
                 dhcp4: true
                 dhcp6: false
                 match:
                     macaddress: ${addresses["management"]}
-                set-name: ens5
-            ens6:
+                set-name: ens4
+            ens5:
                 dhcp4: true
                 dhcp6: false
                 match:
                     macaddress: ${addresses["internal"]}
-                set-name: ens6
+                set-name: ens5
         version: 2
         `
     } catch (error) {

@@ -34,7 +34,7 @@ class Child extends Phase {
         const containerVarPaths = await createContainerVarFiles(this.container, this.logger)
 
         // write general var file
-        await fsp.writeFile(this.varPath, this.infra.awsYML)
+        await fsp.writeFile(this.varPath, this.infra.gcloudYML)
         this.logger.info("General Prepare playbook vars written to " + this.varPath)
 
         // create playbook object for each container
@@ -68,7 +68,7 @@ class Child extends Phase {
         for (const containerVarPath of containerVarPaths) {
             const split = containerVarPath.split("/")
             const limit = split[split.length - 1].replace(".yml", "")
-            playbooks.push(new common.Playbook(this.playbookPath, this.varPath, ["-i", `${conf.runDir}hosts`, `--key-file=${conf.runDir}${this.infra.infra.aws.ssh_key_name}.pem`, `--extra-vars=@${containerVarPath}`, `--limit=${limit}`]))
+            playbooks.push(new common.Playbook(this.playbookPath, this.varPath, ["-i", `${conf.runDir}hosts`, "--private-key", `${conf.sshKeyFile}`, `--extra-vars=@${containerVarPath}`, `--limit=${limit}`]))
         }
         return playbooks
     }

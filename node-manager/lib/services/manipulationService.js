@@ -82,11 +82,11 @@ function getTCConfigs(infrastructure, machineMeta) {
         }
 
         tcConfig[start.machine_name] = {
-            "ens5": {
+            "ens4": {
                 "outgoing": {},
                 "incoming": {}
             },
-            "ens6": {
+            "ens5": {
                 "outgoing": outgoing,
                 "incoming": {}
             }

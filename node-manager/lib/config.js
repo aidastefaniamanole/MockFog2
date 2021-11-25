@@ -45,6 +45,7 @@ const runMachinesDir = path.normalize(runDir + "machines/")
 const runPlaybookVarDir = path.normalize(runDir + "vars/")
 const runContainerVarDir = path.normalize(runPlaybookVarDir + "container/")
 const playbookDir = path.normalize(__dirname + "/../playbooks/")
+const sshKeyFile = path.normalize(__dirname + "/../keys/id_rsa")
 
 // Create folders if they do not exist yet
 checkFolderExists(runDir)
@@ -80,5 +81,6 @@ module.exports = {
     playbookDir: playbookDir,
     runPlaybookVarDir: runPlaybookVarDir,
     runContainerVarDir: runContainerVarDir,
+    sshKeyFile: sshKeyFile,
     checkFolderExists: checkFolderExists
 }

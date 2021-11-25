@@ -42,7 +42,7 @@ class Child extends Phase {
         }
 
         // create playbook object
-        this.playbook = new common.Playbook(this.playbookPath, this.varPath, ["-i", `${conf.runDir}hosts`])
+        this.playbook = new common.Playbook(this.playbookPath, this.varPath, ["-i", `${conf.runDir}hosts`, "--private-key", `${conf.sshKeyFile}`])
     }
 
 }

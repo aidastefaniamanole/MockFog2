@@ -2,6 +2,7 @@
 
 # node app.js bootstrap
 # python3 get_macs.py
+# ./add_ssh_key.sh ubuntu
 node app.js agent
 node app.js manipulate
 node app.js prepare
