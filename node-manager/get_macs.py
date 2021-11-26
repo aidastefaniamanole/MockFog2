@@ -4,8 +4,10 @@ import yaml
 import json
 import re
 
-var_file = "run/config/vars/0101_bootstrap.yml"
-mac_file = "run/config/vars/mac_addrs.json"
+#var_file = "run/config/vars/0101_bootstrap.yml"
+#mac_file = "run/config/vars/mac_addrs.json"
+var_file = "run/vars/0101_bootstrap_gcp.yml"
+mac_file = "run/vars/mac_addrs.json"
 
 # get the compute instance names from the var file
 def get_vm_names():
